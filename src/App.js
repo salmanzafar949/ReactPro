@@ -1,11 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './assets/css/style.css';
 
 const App = () => {
+
+    const [isShowing, setIsShowing] = useState(false);
+
   return (
-    <div className={'bg-gray-600 text-white p-5 border'}>
-      hello
-    </div>
+    <section className="flex justify-center">
+        <div className="w-1/2">
+            <div className="text-center">
+                <div className="my-4">
+                    Hello
+                </div>
+                <button onClick={() => setIsShowing(!isShowing)} className="p-1 bg-blue-700 text-white my-2">
+                    Toggle
+                </button>
+            </div>
+            {
+                isShowing ? "aa" : null
+            }
+        </div>
+    </section>
   );
 }
 
