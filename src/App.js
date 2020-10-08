@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './assets/css/style.css';
+import {Images} from './components/Images';
 
 const App = () => {
 
@@ -17,7 +18,7 @@ const App = () => {
                 </button>
             </div>
             {
-                isShowing ? "aa" : null
+                isShowing ? <Images/> : null
             }
         </div>
     </section>
