@@ -23,10 +23,16 @@ export const Images = () => {
 
         setUrl('')
     }
+
     function ShowImage () {
-        return images.map(image => {
-            return <div className='w-1/3'>
-                <img src={image} width={'150'} alt={image}/>
+        return images.map((image, index) => {
+            return <div className='w-1/3 my-4 flex justify-center' key={index}>
+                <div className="relative">
+                    <i className='fas fa-times absolute right-0 cursor-pointer opacity-25 hover:opacity-100' onClick={() => {
+                        setImages(images.filter((image, i) => i !== index))
+                    }}/>
+                    <img src={image} width={'150'} alt={image}/>
+                </div>
             </div>
         })
     }
@@ -34,8 +40,13 @@ export const Images = () => {
     function FormComp () {
 
         return <div className="flex justify-between my-5">
-            <input type={"text"} className="p-2 border border-gray-800 shadow rounded"  onChange={e => setUrl(e.target.value)} value={url} required={true}/>
-            <button type='button' className="p-2 bg-green-600 text-white" onClick={handleNewImageURl}>Add</button>
+            <div className="w-full">
+                <input type={"text"} className="p-2 border border-gray-800 shadow rounded w-full"  onChange={e => setUrl(e.target.value)} value={url} required={true}/>
+            </div>
+
+            <div className="">
+                <button type='button' className={`p-2 text-white ml-2 ${url ? 'bg-green-600' : 'bg-green-200'}`} onClick={handleNewImageURl} disabled={!url}>Add</button>
+            </div>
         </div>
     }
 
