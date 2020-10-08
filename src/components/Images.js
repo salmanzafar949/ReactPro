@@ -23,7 +23,7 @@ export const Images = () => {
     function ShowImage () {
         return images.map(image => {
             return <div>
-                <img src={image} width={'150'}/>
+                <img src={image} width={'150'} alt={image}/>
             </div>
         })
     }
