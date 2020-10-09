@@ -79,7 +79,9 @@ export const Images = () => {
             <FormComp/>
         </div>
     }
-    return <section>
+    return isLoading ? <div className="flex h-screen">
+        <p className="m-auto"> <i className="fas fa-circle-notch fa-spin text-5xl"/> </p>
+    </div> :<section>
         {
             errors.length > 0
                 ?
