@@ -68,7 +68,6 @@ export const Images = () => {
 
       <div className="gap-0" style={{
           columnCount: 5,
-
       }}>
           <ShowImage/>
       </div>
