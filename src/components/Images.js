@@ -8,7 +8,9 @@ export const Images = () => {
 
     const [url, setUrl] = useState('');
 
-    const [images, setImages] = useFetchImage();
+    const [pageNo, setPageNo] = useState(1)
+
+    const [images, setImages] = useFetchImage(pageNo);
 
     const inputBoxRef = useRef(null);
 
@@ -71,6 +73,10 @@ export const Images = () => {
       }}>
           <ShowImage/>
       </div>
+        <button type='submit' onClick={() => setPageNo(pageNo + 1)}>
+            Load more
+        </button>
+
         <FormComp/>
     </section>
 }
