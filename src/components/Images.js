@@ -16,7 +16,7 @@ export const Images = () => {
 
         inputBoxRef.current.focus();
 
-        Axios.get('https://api.unsplash.com/photos/?client_id=eRmEgyQ9fYVR5dC6WO-CVK5cTnRgWkWwsb9JR4aHrbg').then(res => setImages(res.data)).catch();
+        Axios.get( `${process.env.REACT_APP_API_BASE_URL}?client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`).then(res => setImages(res.data)).catch();
 
         /*const interval = setInterval(() => {
             console.log("abcdef");
