@@ -1,22 +1,22 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {ImageDisplay} from "./ImageDisplay";
 import Axios from "axios";
+import useScroll from "../utils/hooks/useScroll";
+import useFetchImage from "../utils/hooks/useFetchImage";
 
 export const Images = () => {
 
     const [url, setUrl] = useState('');
 
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useFetchImage();
 
     const inputBoxRef = useRef(null);
 
-    const imagesCountRef = useRef(images.length);
+     const imagesCountRef = useRef(images.length);
 
     useEffect(() => {
 
         inputBoxRef.current.focus();
-
-        Axios.get( `${process.env.REACT_APP_API_BASE_URL}?client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`).then(res => setImages(res.data)).catch();
 
         /*const interval = setInterval(() => {
             console.log("abcdef");
@@ -44,7 +44,7 @@ export const Images = () => {
 
     const handleImageRemove = (index) => {
         setImages(images.filter((image, i) => i !== index))
-        imagesCountRef.current = imagesCountRef.current - 1;
+         imagesCountRef.current = imagesCountRef.current - 1;
     }
 
     function ShowImage () {
