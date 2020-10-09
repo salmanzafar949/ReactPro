@@ -1,15 +1,12 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {ImageDisplay} from "./ImageDisplay";
+import Axios from "axios";
 
 export const Images = () => {
 
     const [url, setUrl] = useState('');
 
-    const [images, setImages] = useState([
-        "https://images.unsplash.com/photo-1593642532454-e138e28a63f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
-    ]);
-
-    const [title, setTitle] = useState('React js');
+    const [images, setImages] = useState([]);
 
     const inputBoxRef = useRef(null);
 
@@ -19,22 +16,24 @@ export const Images = () => {
 
         inputBoxRef.current.focus();
 
-        const interval = setInterval(() => {
+        Axios.get('https://api.unsplash.com/photos/?client_id=eRmEgyQ9fYVR5dC6WO-CVK5cTnRgWkWwsb9JR4aHrbg').then(res => setImages(res.data)).catch();
+
+        /*const interval = setInterval(() => {
             console.log("abcdef");
         }, 1000);
 
-       return () => clearInterval(interval)
+       return () => clearInterval(interval)*/
 
     },[]);
 
     /*
     * useEffect for update
     */
-    useEffect(() => {
-        imagesCountRef.current = imagesCountRef.current - 1;
-    })
+    // useEffect(() => {
+    //     // imagesCountRef.current = 0;
+    // })
 
-    useLayoutEffect(() => setTitle('React Js World'), []);
+    // useLayoutEffect(() => setTitle('React Js World'), []);
 
     const handleNewImageURl = () => {
 
@@ -45,10 +44,11 @@ export const Images = () => {
 
     const handleImageRemove = (index) => {
         setImages(images.filter((image, i) => i !== index))
+        imagesCountRef.current = imagesCountRef.current - 1;
     }
 
     function ShowImage () {
-        return images.map((image, index) => <ImageDisplay key={index} image={image} index={index} handleImageRemove={handleImageRemove}/>)
+        return images.map((img, index) => <ImageDisplay key={index} image={img.urls.regular} index={index} handleImageRemove={handleImageRemove}/>);
     }
 
     function FormComp () {
@@ -65,10 +65,7 @@ export const Images = () => {
     }
 
     return <section>
-        <h1> {imagesCountRef.current } </h1>
-        <p>
-            {title}
-        </p>
+
       <div className="flex flex-wrap justify-center">
           <ShowImage/>
       </div>
