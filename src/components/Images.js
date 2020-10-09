@@ -66,7 +66,10 @@ export const Images = () => {
 
     return <section>
 
-      <div className="flex flex-wrap justify-center">
+      <div className="gap-0" style={{
+          columnCount: 5,
+
+      }}>
           <ShowImage/>
       </div>
         <FormComp/>
