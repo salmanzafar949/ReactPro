@@ -10,7 +10,7 @@ export const Images = () => {
 
     const [pageNo, setPageNo] = useState(1)
 
-    const [images, setImages, errors, setErrors] = useFetchImage(pageNo);
+    const [images, setImages, errors, setErrors, isLoading, setIsLoading] = useFetchImage(pageNo);
 
     const inputBoxRef = useRef(null);
 
@@ -73,7 +73,7 @@ export const Images = () => {
             </div>
             <p className='text-center'>
                 <button type='submit' onClick={() => setPageNo(pageNo + 1)}>
-                    Load more
+                    Load more {isLoading && <i className="fas fa-spinner"/>}
                 </button>
             </p>
             <FormComp/>

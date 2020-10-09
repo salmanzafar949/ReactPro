@@ -8,14 +8,20 @@ export default function useFetchImage(page) {
 
     const [images, setImages] = useState([]);
     const [errors, setErrors] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
+        setIsLoading(true)
         Axios.get( `${URL}?client_id=${API_KEY}&page=${page}`)
-            .then(res => setImages([...images, ...res.data]))
+            .then(res => {
+                setIsLoading(false)
+                setImages([...images, ...res.data])
+            })
             .catch(err => {
+                setIsLoading(false)
                 setErrors(err.response.data.errors)
             });
     },[page])
 
-    return [images, setImages, errors, setErrors];
+    return [images, setImages, errors, setErrors, isLoading, setIsLoading];
 }
