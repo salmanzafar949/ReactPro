@@ -1,7 +1,7 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {ImageDisplay} from "./ImageDisplay";
-import Axios from "axios";
-import useScroll from "../utils/hooks/useScroll";
+import Loader from './Loader';
+import ErrorComp from './ErrorComp';
 import useFetchImage from "../utils/hooks/useFetchImage";
 
 export const Images = () => {
@@ -79,17 +79,12 @@ export const Images = () => {
             <FormComp/>
         </div>
     }
-    return isLoading ? <div className="flex h-screen">
-        <p className="m-auto"> <i className="fas fa-circle-notch fa-spin text-5xl text-yellow-600"/> </p>
-    </div> :<section>
+
+    return isLoading ? <Loader/> : <section>
         {
             errors.length > 0
                 ?
-                <div className="flex h-screen">
-                    <p className="m-auto">
-                        {errors}
-                    </p>
-                </div>
+                <ErrorComp errors={errors}/>
                 :
                 <ShowData/>
         }
