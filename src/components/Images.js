@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {ImageDisplay} from "./ImageDisplay";
 
 export const Images = () => {
@@ -9,7 +9,16 @@ export const Images = () => {
         "https://images.unsplash.com/photo-1593642532454-e138e28a63f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
     ]);
 
+    const inputBoxRef = useRef(null);
+
+    const imagesCountRef = useRef(images.length);
+
     useEffect(() => {
+
+        inputBoxRef.current.focus();
+
+        console.log(inputBoxRef);
+        console.log(inputBoxRef.current);
 
        const interval = setInterval(() => {
             console.log("abcdef");
@@ -18,6 +27,13 @@ export const Images = () => {
        return () => clearInterval(interval)
 
     },[]);
+
+    /*
+    * useEffect for update
+    */
+    useEffect(() => {
+        imagesCountRef.current = imagesCountRef.current - 1;
+    })
 
     const handleNewImageURl = () => {
 
@@ -38,7 +54,7 @@ export const Images = () => {
 
         return <div className="flex justify-between my-5">
             <div className="w-full">
-                <input type={"text"} className="p-2 border border-gray-800 shadow rounded w-full"  onChange={e => setUrl(e.target.value)} value={url} required={true}/>
+                <input type={"text"} ref={inputBoxRef} className="p-2 border border-gray-800 shadow rounded w-full"  onChange={e => setUrl(e.target.value)} value={url} required={true}/>
             </div>
 
             <div className="">
@@ -48,6 +64,7 @@ export const Images = () => {
     }
 
     return <section>
+        <h1> {imagesCountRef.current } </h1>
       <div className="flex flex-wrap justify-center">
           <ShowImage/>
       </div>
