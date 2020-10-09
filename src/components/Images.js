@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {ImageDisplay} from "./ImageDisplay";
 
 export const Images = () => {
@@ -9,6 +9,8 @@ export const Images = () => {
         "https://images.unsplash.com/photo-1593642532454-e138e28a63f4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
     ]);
 
+    const [title, setTitle] = useState('React js');
+
     const inputBoxRef = useRef(null);
 
     const imagesCountRef = useRef(images.length);
@@ -17,10 +19,7 @@ export const Images = () => {
 
         inputBoxRef.current.focus();
 
-        console.log(inputBoxRef);
-        console.log(inputBoxRef.current);
-
-       const interval = setInterval(() => {
+        const interval = setInterval(() => {
             console.log("abcdef");
         }, 1000);
 
@@ -34,6 +33,8 @@ export const Images = () => {
     useEffect(() => {
         imagesCountRef.current = imagesCountRef.current - 1;
     })
+
+    useLayoutEffect(() => setTitle('React Js World'), []);
 
     const handleNewImageURl = () => {
 
@@ -65,6 +66,9 @@ export const Images = () => {
 
     return <section>
         <h1> {imagesCountRef.current } </h1>
+        <p>
+            {title}
+        </p>
       <div className="flex flex-wrap justify-center">
           <ShowImage/>
       </div>
