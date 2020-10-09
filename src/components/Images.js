@@ -80,7 +80,7 @@ export const Images = () => {
         </div>
     }
     return isLoading ? <div className="flex h-screen">
-        <p className="m-auto"> <i className="fas fa-circle-notch fa-spin text-5xl"/> </p>
+        <p className="m-auto"> <i className="fas fa-circle-notch fa-spin text-5xl text-yellow-600"/> </p>
     </div> :<section>
         {
             errors.length > 0
