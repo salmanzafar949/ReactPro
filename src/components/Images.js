@@ -10,7 +10,7 @@ export const Images = () => {
 
     const [pageNo, setPageNo] = useState(1)
 
-    const [images, setImages] = useFetchImage(pageNo);
+    const [images, setImages, errors, setErrors] = useFetchImage(pageNo);
 
     const inputBoxRef = useRef(null);
 
@@ -66,17 +66,30 @@ export const Images = () => {
         </div>
     }
 
+    function ShowData(){
+        return<div>
+            <div className="gap-0" style={{columnCount: 5}}>
+                <ShowImage/>
+            </div>
+            <p className='text-center'>
+                <button type='submit' onClick={() => setPageNo(pageNo + 1)}>
+                    Load more
+                </button>
+            </p>
+            <FormComp/>
+        </div>
+    }
     return <section>
-
-      <div className="gap-0" style={{
-          columnCount: 5,
-      }}>
-          <ShowImage/>
-      </div>
-        <button type='submit' onClick={() => setPageNo(pageNo + 1)}>
-            Load more
-        </button>
-
-        <FormComp/>
+        {
+            errors.length > 0
+                ?
+                <div className="flex h-screen">
+                    <p className="m-auto">
+                        {errors}
+                    </p>
+                </div>
+                :
+                <ShowData/>
+        }
     </section>
 }

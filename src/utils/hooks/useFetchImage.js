@@ -7,10 +7,15 @@ const API_KEY = process.env.REACT_APP_UNSPLASH_API_KEY;
 export default function useFetchImage(page) {
 
     const [images, setImages] = useState([]);
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
-        Axios.get( `${URL}?client_id=${API_KEY}&page=${page}`).then(res => setImages([...images, ...res.data])).catch();
+        Axios.get( `${URL}?client_id=${API_KEY}&page=${page}`)
+            .then(res => setImages([...images, ...res.data]))
+            .catch(err => {
+                setErrors(err.response.data.errors)
+            });
     },[page])
 
-    return [images, setImages];
+    return [images, setImages, errors, setErrors];
 }
