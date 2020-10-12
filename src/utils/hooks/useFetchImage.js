@@ -12,7 +12,7 @@ export default function useFetchImage(page) {
 
     useEffect(() => {
         setIsLoading(true)
-        Axios.get( `${URL}?client_id=${API_KEY}&page=${page}`)
+        Axios.get( `${URL}photos/?client_id=${API_KEY}&page=${page}`)
             .then(res => {
                 setIsLoading(false)
                 setImages([...images, ...res.data])
