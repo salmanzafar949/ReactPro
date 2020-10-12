@@ -3,6 +3,7 @@ import {ImageDisplay} from "./ImageDisplay";
 import Loader from './Loader';
 import ErrorComp from './ErrorComp';
 import useFetchImage from "../utils/hooks/useFetchImage";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export const Images = () => {
 
@@ -15,6 +16,17 @@ export const Images = () => {
     const inputBoxRef = useRef(null);
 
      const imagesCountRef = useRef(images.length);
+
+    /* useEffect(() => {
+
+         if (scrollPosition >= document.body.offsetHeight - window.innerHeight)
+         {
+             setPageNo(pageNo + 1)
+         }
+
+         console.log(scrollPosition, window.innerHeight, document.body.offsetHeight)
+
+     },[scrollPosition])*/
 
     useEffect(() => {
 
@@ -50,7 +62,11 @@ export const Images = () => {
     }
 
     function ShowImage () {
-        return images.map((img, index) => <ImageDisplay key={index} image={img.urls.regular} index={index} handleImageRemove={handleImageRemove}/>);
+        return <InfiniteScroll className="flex flex-wrap" next={() => setPageNo(pageNo + 1)} hasMore={true} dataLength={images.length}>
+            {
+                images.map((img, index) => <ImageDisplay key={index} image={img.urls.regular} index={index} handleImageRemove={handleImageRemove}/>)
+            }
+        </InfiniteScroll>;
     }
 
     function FormComp () {
@@ -68,25 +84,16 @@ export const Images = () => {
 
     function ShowData(){
         return<div>
-            <div className="gap-0" style={{columnCount: 5}}>
                 <ShowImage/>
-            </div>
-            <p className='text-center'>
-                <button type='submit' onClick={() => setPageNo(pageNo + 1)}>
-                    Load more {isLoading && <i className="fas fa-spinner"/>}
-                </button>
-            </p>
-            <FormComp/>
+                <FormComp/>
         </div>
     }
 
-    return isLoading ? <Loader/> : <section>
+    return <section>
+        <ShowData/>
         {
-            errors.length > 0
-                ?
-                <ErrorComp errors={errors}/>
-                :
-                <ShowData/>
+            errors && errors.length > 0 && <ErrorComp errors={errors}/>
         }
+        {isLoading && <Loader/>}
     </section>
 }
