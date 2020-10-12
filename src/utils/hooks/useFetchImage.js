@@ -4,7 +4,7 @@ import Axios from "axios";
 const URL = process.env.REACT_APP_API_BASE_URL;
 const API_KEY = process.env.REACT_APP_UNSPLASH_API_KEY;
 
-export default function useFetchImage(page) {
+export default function useFetchImage(page, query) {
 
     const [images, setImages] = useState([]);
     const [errors, setErrors] = useState([])
@@ -22,6 +22,20 @@ export default function useFetchImage(page) {
                 setErrors(err.response.data.errors)
             });
     },[page])
+
+    useEffect(() => {
+        if (!query) return;
+        setIsLoading(true)
+        Axios.get( `${URL}search/photos/?client_id=${API_KEY}&page=${page}&query=${query}`)
+            .then(res => {
+                setIsLoading(false)
+                setImages([...res.data.results])
+            })
+            .catch(err => {
+                setIsLoading(false)
+                setErrors(err.response.data.errors)
+            });
+    },[query])
 
     return [images, setImages, errors, setErrors, isLoading, setIsLoading];
 }

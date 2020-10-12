@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {ImageDisplay} from "./ImageDisplay";
 import Loader from './Loader';
 import ErrorComp from './ErrorComp';
@@ -11,7 +11,9 @@ export const Images = () => {
 
     const [pageNo, setPageNo] = useState(1)
 
-    const [images, setImages, errors, setErrors, isLoading, setIsLoading] = useFetchImage(pageNo);
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const [images, setImages, errors, setErrors, isLoading, setIsLoading] = useFetchImage(pageNo, searchTerm);
 
     const inputBoxRef = useRef(null);
 
@@ -30,7 +32,7 @@ export const Images = () => {
 
     useEffect(() => {
 
-        inputBoxRef.current.focus();
+        // inputBoxRef.current.focus();
 
         /*const interval = setInterval(() => {
             console.log("abcdef");
@@ -82,14 +84,25 @@ export const Images = () => {
         </div>
     }
 
+    function handleInput (e) {
+        setSearchTerm(e.target.value)
+    }
+
     function ShowData(){
         return<div>
                 <ShowImage/>
-                <FormComp/>
         </div>
     }
 
     return <section>
+        <div className="my-5 border rounded shadow">
+            <input
+                type="text"
+                className="w-full"
+                onChange={handleInput}
+                value={searchTerm}
+                placeholder="Search photos"/>
+        </div>
         <ShowData/>
         {
             errors && errors.length > 0 && <ErrorComp errors={errors}/>
