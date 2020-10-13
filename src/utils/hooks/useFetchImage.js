@@ -10,32 +10,47 @@ export default function useFetchImage(page, query) {
     const [errors, setErrors] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    useEffect(() => {
-        setIsLoading(true)
-        Axios.get( `${URL}photos/?client_id=${API_KEY}&page=${page}`)
-            .then(res => {
-                setIsLoading(false)
-                setImages([...images, ...res.data])
+    const fetch = () => {
+
+        setIsLoading(true);
+
+        const endpoint = query ? `search/photos/?query=${query}&` : `photos?`
+
+        Axios.get( `${URL}${endpoint}client_id=${API_KEY}&page=${page}`)
+            .then((res) => {
+                if (query)
+                    fetchSearchedImages(res)
+                else
+                    fetchRandomImages(res)
             })
             .catch(err => {
                 setIsLoading(false)
                 setErrors(err.response.data.errors)
             });
-    },[page])
+
+    }
+
+    const fetchSearchedImages = (res) => {
+        if (page > 1)
+            setImages([...images, ...res.data.results])
+        else
+            setImages([...res.data.results])
+    }
+
+    const fetchRandomImages = (res) => {
+        if (page > 1)
+            setImages([...images, ...res.data])
+        else
+            setImages([...res.data])
+    }
 
     useEffect(() => {
-        if (!query) return;
-        setIsLoading(true)
-        Axios.get( `${URL}search/photos/?client_id=${API_KEY}&page=${page}&query=${query}`)
-            .then(res => {
-                setIsLoading(false)
-                setImages([...res.data.results])
-            })
-            .catch(err => {
-                setIsLoading(false)
-                setErrors(err.response.data.errors)
-            });
-    },[query])
+        fetch();
+    },[page, query])
+
+    /*useEffect(() => {
+        fetch();
+    },[query])*/
 
     return [images, setImages, errors, setErrors, isLoading, setIsLoading];
 }
