@@ -4,6 +4,7 @@ import Loader from './Loader';
 import ErrorComp from './ErrorComp';
 import useFetchImage from "../utils/hooks/useFetchImage";
 import InfiniteScroll from "react-infinite-scroll-component";
+import useDeBounce from "../utils/hooks/useDebounce";
 
 export const Images = () => {
 
@@ -15,9 +16,11 @@ export const Images = () => {
 
     const [images, setImages, errors, setErrors, isLoading, setIsLoading] = useFetchImage(pageNo, searchTerm);
 
+    const debounce = useDeBounce();
+
     const inputBoxRef = useRef(null);
 
-     const imagesCountRef = useRef(images.length);
+    const imagesCountRef = useRef(images.length);
 
     /* useEffect(() => {
 
@@ -85,7 +88,10 @@ export const Images = () => {
     }
 
     function handleInput (e) {
-        setSearchTerm(e.target.value)
+
+        const term = e.target.value;
+
+        debounce(() => setSearchTerm(term))
     }
 
     function ShowData(){
@@ -100,7 +106,6 @@ export const Images = () => {
                 type="text"
                 className="w-full"
                 onChange={handleInput}
-                value={searchTerm}
                 placeholder="Search photos"/>
         </div>
         <ShowData/>
