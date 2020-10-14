@@ -12,7 +12,7 @@ const Header = () => {
 
     function handleLogout(){
         firebase.auth().signOut()
-            .then(res => {
+            .then(() => {
                 setIsLoggedIn(false)
                 history.replace('/login')
             })
@@ -31,7 +31,7 @@ const Header = () => {
           </span>
            <li>
                {
-                   isLoggedIn ?
+                   !isLoggedIn ?
                        <button type="button" onClick={handleLogout}> Logout</button>
                        :
                        <Link to={'/login'}>Login</Link>
