@@ -1,23 +1,17 @@
 import React from 'react';
 import './assets/css/style.css';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Gallery from "./pages/Gallery";
+import routes from "./utils/routes/routes";
 
 const App = () => {
 
     return <Router>
         <Switch>
-            <Route path={'/'} exact={true}>
-                <Home/>
-            </Route>
-            <Route path={'/login'} exact={true}>
-                <Login/>
-            </Route>
-            <Route path={'/gallery'} exact={true}>
-                <Gallery/>
-            </Route>
+            {
+                routes.map((route) => {
+                   return <Route path={route.path} exact={route.exact} component={route.component}/>
+                })
+            }
         </Switch>
     </Router>
 }
