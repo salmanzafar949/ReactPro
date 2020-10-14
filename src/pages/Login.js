@@ -1,12 +1,13 @@
 import React, {useState} from "react";
 import firebase from "../config/firebase";
-import ErrorComp from "../components/ErrorComp";
+import {useHistory} from 'react-router-dom';
 
 const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const history = useHistory();
 
     function handleLogin(e){
         e.preventDefault();
@@ -15,6 +16,7 @@ const Login = () => {
             .signInWithEmailAndPassword(email, password)
             .then((res) => {
                 console.log(res)
+                history.replace('/')
                 setError("")
                 setIsLoading(false)
             }).catch((err) => {
