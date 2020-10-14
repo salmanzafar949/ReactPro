@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "autoprefixer": "^9.0.0",
     "axios": "^0.20.0",
+    "firebase": "^7.23.0",
     "postcss-cli": "^8.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
