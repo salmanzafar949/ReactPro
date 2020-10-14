@@ -10,8 +10,11 @@ const App = () => {
         <Header/>
         <Switch>
             {
-                routes.map((route) => {
-                   return <Route path={route.path} exact={route.exact} component={route.component}/>
+                routes.map((route, index) => {
+                   return <Route key={index}
+                                 path={route.path}
+                                 exact={route.exact}
+                                 component={route.component}/>
                 })
             }
         </Switch>
