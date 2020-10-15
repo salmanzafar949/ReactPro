@@ -7,16 +7,19 @@ export default [
     {
         path: "/",
         exact: true,
-        component: () => <Home/>
+        component: () => <Home/>,
+        middleware: null,
     },
     {
         path: "/login",
         exact: true,
-        component: () => <Login/>
+        component: () => <Login/>,
+        middleware: "guest",
     },
     {
         path: "/gallery",
         exact: true,
-        component: () => <Gallery/>
+        component: () => <Gallery/>,
+        middleware: "auth",
     },
 ]
