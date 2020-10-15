@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import {UserProvider} from "./utils/context/UserContext";
 import GuestRoute from "./utils/routes/GuestRoute";
 import AuthRoute from "./utils/routes/AuthRoute";
+import NotFound from "./pages/NotFound";
 
 const RenderApplicationRoutes = () => {
 
@@ -34,6 +35,8 @@ const RenderApplicationRoutes = () => {
                               component={route.component}/>
             })
         }
+
+        <Route path={'*'}> <NotFound/> </Route>
     </Switch>
 }
 
