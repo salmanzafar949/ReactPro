@@ -27,15 +27,15 @@ const Header = () => {
                   <NavLink to={'/gallery'} activeClassName="underline" exact={true}>Gallery</NavLink>
               </li>
           </span>
+           {
+               !isLoggedIn ?
+                   <li>
+                       <NavLink to={'/login'} activeClassName="underline" exact={true}>Login</NavLink>
+                       <NavLink to={'signup'} activeClassName="underline" className="ml-5">signup</NavLink>
+                   </li>
+                   : <button type="button" onClick={handleLogout}> Logout</button>
+           }
        </ul>
-        <ul>
-            <li>
-                {
-                    !isLoggedIn ? <NavLink to={'/login'} activeClassName="underline" exact={true}>Login</NavLink>
-                        : <button type="button" onClick={handleLogout}> Logout</button>
-                }
-            </li>
-        </ul>
     </nav>
 }
 
