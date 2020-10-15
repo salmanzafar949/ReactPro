@@ -1,4 +1,4 @@
-import {Link, useHistory} from "react-router-dom";
+import {Link, NavLink, useHistory} from "react-router-dom";
 import React, {useContext} from "react";
 import firebase from "../config/firebase";
 import {UserContext} from "../utils/context/UserContext";
@@ -21,15 +21,15 @@ const Header = () => {
        <ul className="flex justify-between px-10">
           <span className="flex">
                <li className="mr-5">
-                   <Link to={'/'}>Home</Link>
+                   <NavLink to={'/'} activeClassName="underline" exact={true}>Home</NavLink>
                </li>
               <li className="mr-5">
-                  <Link to={'/gallery'}>Gallery</Link>
+                  <NavLink to={'/gallery'} activeClassName="underline" exact={true}>Gallery</NavLink>
               </li>
           </span>
            <li>
                {
-                   !isLoggedIn ? <Link to={'/login'}>Login</Link>
+                   !isLoggedIn ? <NavLink to={'/login'} activeClassName="underline" exact={true}>Login</NavLink>
                        : <button type="button" onClick={handleLogout}> Logout</button>
                }
            </li>
