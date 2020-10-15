@@ -1,22 +1,17 @@
 import {Link, useHistory} from "react-router-dom";
-import React, {useEffect, useState} from "react";
+import React, {useContext} from "react";
 import firebase from "../config/firebase";
+import {UserContext} from "../utils/context/UserContext";
 
 const Header = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn, user, setUser] = useContext(UserContext);
     const history = useHistory();
-
-    useEffect(() => {
-        firebase.auth().onAuthStateChanged(user => {
-            if (user)
-                setIsLoggedIn(true)
-        })
-    })
 
     function handleLogout(){
         firebase.auth().signOut()
             .then(() => {
                 setIsLoggedIn(false)
+                setUser({})
                 history.replace('/login')
             })
             .catch(err => alert(err.response.data))
