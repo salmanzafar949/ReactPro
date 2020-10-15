@@ -2,6 +2,7 @@ import React from "react";
 import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Gallery from "../../pages/Gallery";
+import SignUp from "../../pages/SignUp";
 
 export default [
     {
@@ -14,6 +15,12 @@ export default [
         path: "/login",
         exact: true,
         component: () => <Login/>,
+        middleware: "guest",
+    },
+    {
+        path: "/signup",
+        exact: true,
+        component: () => <SignUp/>,
         middleware: "guest",
     },
     {
