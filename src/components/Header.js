@@ -7,7 +7,10 @@ const Header = () => {
     const history = useHistory();
 
     useEffect(() => {
-        firebase.auth().onAuthStateChanged(user => setIsLoggedIn(true))
+        firebase.auth().onAuthStateChanged(user => {
+            if (user)
+                setIsLoggedIn(true)
+        })
     })
 
     function handleLogout(){
@@ -31,10 +34,8 @@ const Header = () => {
           </span>
            <li>
                {
-                   !isLoggedIn ?
-                       <button type="button" onClick={handleLogout}> Logout</button>
-                       :
-                       <Link to={'/login'}>Login</Link>
+                   !isLoggedIn ? <Link to={'/login'}>Login</Link>
+                       : <button type="button" onClick={handleLogout}> Logout</button>
                }
            </li>
        </ul>
