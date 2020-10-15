@@ -7,37 +7,42 @@ import {UserProvider} from "./utils/context/UserContext";
 import GuestRoute from "./utils/routes/GuestRoute";
 import AuthRoute from "./utils/routes/AuthRoute";
 
+const RenderApplicationRoutes = () => {
+
+    return  <Switch>
+        {
+            routes.map((route, index) => {
+                if (route.middleware === "guest")
+                {
+                    return <GuestRoute key={index}
+                                       path={route.path}
+                                       exact={route.exact}
+                                       component={route.component}/>
+                }
+
+                if (route.middleware === "auth")
+                {
+                    return <AuthRoute  key={index}
+                                       path={route.path}
+                                       exact={route.exact}
+                                       component={route.component}/>
+                }
+
+                return <Route key={index}
+                              path={route.path}
+                              exact={route.exact}
+                              component={route.component}/>
+            })
+        }
+    </Switch>
+}
+
 const App = () => {
 
     return <Router>
         <UserProvider>
             <Header/>
-            <Switch>
-                {
-                    routes.map((route, index) => {
-                        if (route.middleware === "guest")
-                        {
-                            return <GuestRoute key={index}
-                                               path={route.path}
-                                               exact={route.exact}
-                                               component={route.component}/>
-                        }
-
-                        if (route.middleware === "auth")
-                        {
-                            return <AuthRoute  key={index}
-                                               path={route.path}
-                                               exact={route.exact}
-                                               component={route.component}/>
-                        }
-
-                        return <Route key={index}
-                                      path={route.path}
-                                      exact={route.exact}
-                                      component={route.component}/>
-                    })
-                }
-            </Switch>
+            <RenderApplicationRoutes/>
         </UserProvider>
     </Router>
 }
