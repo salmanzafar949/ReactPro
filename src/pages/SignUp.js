@@ -23,10 +23,11 @@ const SignUp = props => {
                 <div className="w-full my-6">
                     <input className="p-2 rounded shadow w-full text-black"
                            type="email"
-                           name="email"
-                           value={formik.values.email}
-                           onChange={formik.handleChange}
-                           onBlur={formik.handleBlur}
+                           {...formik.getFieldProps('email')}
+                           // name="email"
+                           // value={formik.values.email}
+                           // onChange={formik.handleChange}
+                           // onBlur={formik.handleBlur}
                            placeholder="Email"/>
                     {
                         formik.touched.email && formik.errors.email
@@ -38,10 +39,7 @@ const SignUp = props => {
                 <div className="w-full my-6">
                     <input className="p-2 rounded shadow w-full text-black"
                            placeholder="*******"
-                           name="password"
-                           value={formik.values.password}
-                           onChange={formik.handleChange}
-                           onBlur={formik.handleBlur}
+                           {...formik.getFieldProps('password')}
                            type="password"/>
                     {
                         formik.touched.password && formik.errors.password
