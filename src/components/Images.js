@@ -5,6 +5,7 @@ import ErrorComp from './ErrorComp';
 import useFetchImage from "../utils/hooks/useFetchImage";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useDeBounce from "../utils/hooks/useDebounce";
+import {AnimatePresence, AnimateSharedLayout, motion} from "framer-motion";
 
 export const Images = () => {
 
@@ -67,11 +68,33 @@ export const Images = () => {
     }
 
     function ShowImage () {
-        return <InfiniteScroll className="flex flex-wrap" next={() => setPageNo(pageNo + 1)} hasMore={true} dataLength={images.length}>
-            {
-                images.map((img, index) => <ImageDisplay key={index} image={img.urls.regular} index={index} handleImageRemove={handleImageRemove}/>)
-            }
-        </InfiniteScroll>;
+        const [showPreview, setShowPreview] = useState(null);
+
+        return <AnimateSharedLayout>
+            <InfiniteScroll className="flex flex-wrap" next={() => setPageNo(pageNo + 1)} hasMore={true} dataLength={images.length}>
+                {
+                    images.map((image, index) => <motion.div layoutId={image.urls.regular} key={index} className='w-1/6 p-1 border flex justify-center'>
+                        <ImageDisplay showImage={() => setShowPreview(image.urls.regular)} image={image.urls.regular} index={index} handleImageRemove={handleImageRemove}/>
+                    </motion.div>)
+                }
+            </InfiniteScroll>
+            <AnimatePresence>
+                {
+                    showPreview && (
+                        <motion.section layoutId={showPreview} exit={{opacity: 0, rotate: 360, transition: {duration: 1}}} className="fixed w-full h-full flex justify-center items-center top-0 left-0 z-40" onClick={() => setShowPreview(false)}>
+                            <div className="bg-white">
+                                <p>
+                                    <img src={showPreview}
+                                         width="300"
+                                         height="auto"
+                                         alt={showPreview}/>
+                                </p>
+                            </div>
+                        </motion.section>
+                    )
+                }
+            </AnimatePresence>
+        </AnimateSharedLayout>;
     }
 
     function FormComp () {
