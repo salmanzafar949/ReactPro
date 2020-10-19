@@ -1,14 +1,15 @@
 import React, {useContext} from "react";
 import {UserContext} from "../context/UserContext";
 import {Route, Redirect} from "react-router-dom";
+import AnimatedRoute from "./AnimatedRoute";
 
 
-const GuestRoute = (props) => {
+const GuestRoute = ({children, ...rest}) => {
 
     const [isLoggedIn] = useContext(UserContext)
 
     if (!isLoggedIn)
-        return <Route {...props}/>
+        return <AnimatedRoute {...rest}>{children}</AnimatedRoute>
     else
         return <Redirect to={'/'}/>
 

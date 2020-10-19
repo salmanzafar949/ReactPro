@@ -3,12 +3,14 @@ import {UserContext} from "../context/UserContext";
 import {Route, Redirect} from "react-router-dom";
 
 
-const AuthRoute = (props) => {
+const AuthRoute = ({children, ...rest}) => {
 
     const [isLoggedIn] = useContext(UserContext)
 
     if (isLoggedIn)
-        return <Route {...props}/>
+        return <Route {...rest}>
+            {children}
+        </Route>
     else
         return <Redirect to={'/login'}/>
 
