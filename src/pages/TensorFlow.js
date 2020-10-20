@@ -1,27 +1,10 @@
-import React, {useEffect, useRef, useState} from "react";
-import '@tensorflow/tfjs';
-import * as mobilenet from '@tensorflow-models/mobilenet';
-import {data} from "@tensorflow/tfjs";
+import React, {useRef} from "react";
+import {useTensorFlowPrediction} from "../utils/hooks/useTensorFlowPrediction";
 
 const TensorFlow = (props) => {
 
     const ImageRef = useRef();
-    const [isLoading, setIsLoading] = useState(false);
-    const [predictions, setPredictions] = useState([]);
-
-    const predict = () => {
-        setIsLoading(true)
-        setPredictions([])
-        const img = ImageRef.current;
-
-        mobilenet.load().then(model => {
-            // Classify the image.
-            model.classify(img).then(predictions => {
-                setIsLoading(false)
-                setPredictions(predictions)
-            });
-        });
-    }
+    const [predict, isLoading, predictions] = useTensorFlowPrediction()
 
     return (
         <div className="flex justify-center">
@@ -32,7 +15,7 @@ const TensorFlow = (props) => {
                      src="https://images.unsplash.com/photo-1561037404-61cd46aa615b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjE3MjkzNX0"
                      ref={ImageRef} alt=""/>
                      <div className="text-center my-5">
-                         <button disabled={isLoading} onClick={predict} className="p-2 rounded bg-green-700 text-white">
+                         <button disabled={isLoading} onClick={() => predict(ImageRef.current)} className="p-2 rounded bg-green-700 text-white">
                              Predict { isLoading && <i className="fas fa-spinner fa-spin"/> }
                          </button>
                      </div>
