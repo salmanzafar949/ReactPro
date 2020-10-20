@@ -1,4 +1,4 @@
-import {Link, NavLink, useHistory} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 import React, {useContext} from "react";
 import firebase from "../config/firebase";
 import {UserContext} from "../utils/context/UserContext";
