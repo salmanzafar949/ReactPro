@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import PropTypes from 'prop-types';
 
 const ImageDisplay = ({image, index, handleImageRemove, showImage}) => {
 
@@ -20,7 +21,7 @@ const ImageDisplay = ({image, index, handleImageRemove, showImage}) => {
     )
 }
 
-const types = {
+/*const types = {
     function (props, propName){
         if (typeof props[propName] !== 'function')
         {
@@ -41,16 +42,17 @@ const types = {
             return new Error(`${propName} must be number but ${typeof props[propName]} given`)
         }
     },
-}
+}*/
+
 ImageDisplay.propTypes = {
 
-    image: types.string,
+    image: PropTypes.string,
 
-    showImage: types.function,
+    showImage: PropTypes.func,
 
-    index: types.number,
+    index: PropTypes.number,
 
-    handleImageRemove: types.function
+    handleImageRemove: PropTypes.func
 }
 
 export default ImageDisplay;
