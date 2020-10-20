@@ -4,7 +4,7 @@ import {useTensorFlowPrediction} from "../utils/hooks/useTensorFlowPrediction";
 const TensorFlow = (props) => {
 
     const ImageRef = useRef();
-    const [predict, isLoading, predictions] = useTensorFlowPrediction()
+    const {predict, isLoading, predictions} = useTensorFlowPrediction()
 
     return (
         <div className="flex justify-center">

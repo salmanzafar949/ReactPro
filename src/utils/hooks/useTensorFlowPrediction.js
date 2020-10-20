@@ -20,5 +20,5 @@ export const useTensorFlowPrediction = () => {
         });
     }
 
-    return [predict, isLoading, predictions, setPredictions];
+    return {predict, isLoading, predictions, setPredictions};
 }

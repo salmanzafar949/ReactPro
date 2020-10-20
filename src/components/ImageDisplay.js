@@ -6,7 +6,7 @@ const ImageDisplay = ({image, index, handleImageRemove, showImage}) => {
 
     const imageRef = useRef();
     const [isHovering, setIsHovering] = useState(false);
-    const [predict, isLoading, predictions, setPredictions] = useTensorFlowPrediction()
+    const {predict, isLoading, predictions, setPredictions} = useTensorFlowPrediction()
 
     return (
         <div className="relative"
