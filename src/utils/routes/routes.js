@@ -3,6 +3,7 @@ import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Gallery from "../../pages/Gallery";
 import SignUp from "../../pages/SignUp";
+import TensorFlow from "../../pages/TensorFlow";
 
 export default [
     {
@@ -28,5 +29,11 @@ export default [
         exact: true,
         component: () => <Gallery/>,
         middleware: "auth",
+    },
+    {
+        path: "/tensorflow",
+        exact: true,
+        component: () => <TensorFlow/>,
+        middleware: null,
     },
 ]
