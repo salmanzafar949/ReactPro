@@ -20,35 +20,37 @@ const ImageDisplay = ({image, index, handleImageRemove, showImage}) => {
     )
 }
 
-ImageDisplay.propTypes = {
-
-    image: (props, propName) => {
-        if (typeof props[propName] !== 'string')
+const types = {
+    function (props, propName){
+        if (typeof props[propName] !== 'function')
         {
             return new Error(`${propName} must be string but ${typeof props[propName]} given`)
         }
     },
 
-    showImage: (props, propName) => {
-        if (typeof props[propName] !== 'function')
-        {
-            return new Error(`${propName} must be function but ${typeof props[propName]} given`)
-        }
-    },
-
-    index: (props, propName) => {
+    number(props, propName){
         if (typeof props[propName] !== 'number')
         {
             return new Error(`${propName} must be number but ${typeof props[propName]} given`)
         }
     },
 
-    handleImageRemove: (props, propName) => {
-        if (typeof props[propName] !== 'function')
+    string(props, propName){
+        if (typeof props[propName] !== 'string')
         {
-            return new Error(`${propName} must be function but ${typeof props[propName]} given`)
+            return new Error(`${propName} must be number but ${typeof props[propName]} given`)
         }
     },
+}
+ImageDisplay.propTypes = {
+
+    image: types.string,
+
+    showImage: types.function,
+
+    index: types.number,
+
+    handleImageRemove: types.function
 }
 
 export default ImageDisplay;
