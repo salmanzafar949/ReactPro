@@ -26,6 +26,9 @@ const Header = () => {
               <li className="mr-5">
                   <NavLink to={'/gallery'} activeClassName="underline" exact={true}>Gallery</NavLink>
               </li>
+              <li className="mr-5">
+                  <NavLink to={'/tensorflow'} activeClassName="underline" exact={true}>TensorFlow</NavLink>
+              </li>
           </span>
            {
                !isLoggedIn ?
