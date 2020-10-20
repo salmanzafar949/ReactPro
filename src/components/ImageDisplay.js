@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-export const ImageDisplay = ({image, index, handleImageRemove, showImage}) => {
+const ImageDisplay = ({image, index, handleImageRemove, showImage}) => {
 
     const [isHovering, setIsHovering] = useState(false);
 
@@ -19,3 +19,36 @@ export const ImageDisplay = ({image, index, handleImageRemove, showImage}) => {
         </div>
     )
 }
+
+ImageDisplay.propTypes = {
+
+    image: (props, propName) => {
+        if (typeof props[propName] !== 'string')
+        {
+            return new Error(`${propName} must be string but ${typeof props[propName]} given`)
+        }
+    },
+
+    showImage: (props, propName) => {
+        if (typeof props[propName] !== 'function')
+        {
+            return new Error(`${propName} must be function but ${typeof props[propName]} given`)
+        }
+    },
+
+    index: (props, propName) => {
+        if (typeof props[propName] !== 'number')
+        {
+            return new Error(`${propName} must be number but ${typeof props[propName]} given`)
+        }
+    },
+
+    handleImageRemove: (props, propName) => {
+        if (typeof props[propName] !== 'function')
+        {
+            return new Error(`${propName} must be function but ${typeof props[propName]} given`)
+        }
+    },
+}
+
+export default ImageDisplay;

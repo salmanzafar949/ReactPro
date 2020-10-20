@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {ImageDisplay} from "./ImageDisplay";
+import ImageDisplay from "./ImageDisplay";
 import Loader from './Loader';
 import ErrorComp from './ErrorComp';
 import useFetchImage from "../utils/hooks/useFetchImage";
